@@ -42,7 +42,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
 
 
 Route::get('/test', function (){
-    Permission::create(['name' => 'manage users']);
+    $user = \App\Models\User::find(2);
+    $user->givePermissionTo('create buildings');// ALLOWED GET VIA PERMISSION NAME
+
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

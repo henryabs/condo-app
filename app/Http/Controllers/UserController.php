@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -17,7 +18,10 @@ class UserController extends Controller
 
     public function userLists(){
         if(auth()->user()->can('manage users')){
-            return view('admin.user.lists');
+            $users = User::all();
+            $roles = Role::all();
+            $permissions = Permission::all();
+            return view('admin.user.lists', ['users' => $users, 'permissions' => $permissions, 'roles' => $roles]);
         }else{
             abort(403);
         }
