@@ -108,8 +108,8 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">User Management</a>
             <div class="dropdown-content">
-                <a href="#">Create New</a>
-                <a href="#">User List</a>
+                <a href="{{route('user.create')}}">Create New</a>
+                <a href="{{route('user.lists')}}">User List</a>
                 <a href="#">Roles</a>
             </div>
         </li>

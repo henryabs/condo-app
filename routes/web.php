@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
    //BUILDING CONTROLLER
    Route::get('/buildings/create', [BuildingController::class, 'create'])->name('building.create');
    Route::get('/buildings/lists', [BuildingController::class, 'buildingLists'])->name('building.lists');
+
+    //USER CONTROLLER
+    Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+    Route::get('/users/lists', [UserController::class, 'userLists'])->name('user.lists');
+
 });
 
 
