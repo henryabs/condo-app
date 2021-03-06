@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//PAGES CONTROLLER
+Route::get('/', [PagesController::class, 'main'])->name('admin.main');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     //PAGES CONTROLLER
    Route::get('/', [PagesController::class, 'index'])->name('admin.index');
@@ -31,10 +34,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
 
 
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
