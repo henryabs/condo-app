@@ -1,24 +1,5 @@
 <style>
-    /*ul {*/
-    /*    list-style-type: none;*/
-    /*    margin: 0;*/
-    /*    padding: 0;*/
-    /*    width: 200px;*/
-    /*    background-color: #f1f1f1;*/
-    /*}*/
 
-    /*li a {*/
-    /*    display: block;*/
-    /*    color: #000;*/
-    /*    padding: 8px 16px;*/
-    /*    text-decoration: none;*/
-    /*}*/
-
-    /*!* Change the link color on hover *!*/
-    /*li a:hover {*/
-    /*    background-color: #555;*/
-    /*    color: white;*/
-    /*}*/
     ul {
         list-style-type: none;
         margin: 0;
@@ -70,20 +51,7 @@
         display: block;
 </style>
 <nav>
-{{--    <ul>--}}
-{{--        <li><a href="{{route('admin.index')}}">Dashboard</a></li>--}}
-{{--        <li><a href="{{route('building.index')}}">Building</a></li>--}}
-{{--        <li><a href="{{route('admin.index')}}">Billing</a></li>--}}
-{{--        <li><a href="{{route('admin.index')}}">User Management</a></li>--}}
-{{--        <li>--}}
-{{--            <form method="POST" action="{{ route('logout') }}">--}}
-{{--                @csrf--}}
-{{--                <a href="{{ route('logout') }}"--}}
-{{--                   onclick="event.preventDefault();--}}
-{{--                   this.closest('form').submit();">Logout</a>--}}
-{{--            </form>--}}
-{{--        </li>--}}
-{{--    </ul>--}}
+
 
     <ul>
         <li><a href="{{route('admin.index')}}">Dashboard</a></li>
@@ -110,7 +78,7 @@
             <div class="dropdown-content">
                 <a href="{{route('user.create')}}">Create New</a>
                 <a href="{{route('user.lists')}}">User List</a>
-                <a href="#">Roles</a>
+                <a href="{{route('user.roles')}}">Roles</a>
             </div>
         </li>
 

@@ -30,6 +30,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
     Route::get('/users/lists', [UserController::class, 'userLists'])->name('user.lists');
     Route::get('/users/roles', [UserController::class, 'roles'])->name('user.roles');
+
+    //ROLES
+    Route::get('/users/roles/create', [UserController::class, 'createRole'])->name('user.roles.create');
+    Route::post('/users/roles/store', [UserController::class, 'storeRole'])->name('user.roles.store');
 });
 
 
