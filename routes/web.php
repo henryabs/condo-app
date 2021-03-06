@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix' => 'admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
+    //PAGES CONTROLLER
    Route::get('/', [PagesController::class, 'index'])->name('admin.index');
+
+   //BUILDING CONTROLLER
+   Route::get('/buildings/create', [BuildingController::class, 'create'])->name('building.create');
+   Route::get('/buildings/lists', [BuildingController::class, 'buildingLists'])->name('building.lists');
 });
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
