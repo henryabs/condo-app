@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Condo Management System</title>
+    <title>{{env('APP_NAME')}}</title>
 </head>
 
 <body>

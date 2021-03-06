@@ -40,7 +40,7 @@
     }
 
     li a:hover, .dropdown:hover .dropbtn {
-        background-color: red;
+        background-color: teal;
     }
 
     li.dropdown {
@@ -115,6 +115,10 @@
         </li>
 
         <li>
+
+
+        <li><a href="{{route('admin.index')}}">Reports</a></li>
+        <li><a href="{{route('admin.index')}}">System</a></li>
         <li>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
