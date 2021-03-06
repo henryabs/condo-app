@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     //USER CONTROLLER
     Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
     Route::get('/users/lists', [UserController::class, 'userLists'])->name('user.lists');
-
+    Route::get('/users/roles', [UserController::class, 'roles'])->name('user.roles');
 });
 
 

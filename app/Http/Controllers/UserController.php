@@ -13,4 +13,8 @@ class UserController extends Controller
     public function userLists(){
         return view('admin.user.lists');
     }
+
+    public function roles(){
+        return view('admin.user.roles');
+    }
 }
