@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use Spatie\Permission\Models\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,14 +31,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
     Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
     Route::get('/users/lists', [UserController::class, 'userLists'])->name('user.lists');
     Route::get('/users/roles', [UserController::class, 'roles'])->name('user.roles');
-
+    Route::get('/users/permissions', [UserController::class, 'permissions'])->name('user.permissions');
     //ROLES
     Route::get('/users/roles/create', [UserController::class, 'createRole'])->name('user.roles.create');
     Route::post('/users/roles/store', [UserController::class, 'storeRole'])->name('user.roles.store');
+
+    //REPORT CONTROLLER
+    Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
 });
 
 
-
+Route::get('/test', function (){
+    Permission::create(['name' => 'manage users']);
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

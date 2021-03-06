@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 class BuildingController extends Controller
 {
     public function create(){
-        return view('admin.building.create');
+        if(auth()->user()->can('create buildings')){
+            return view('admin.building.create');
+        }else{
+            abort(403);
+        }
     }
 
     public function buildingLists(){

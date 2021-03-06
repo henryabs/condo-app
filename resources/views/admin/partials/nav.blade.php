@@ -59,7 +59,9 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Buildings</a>
             <div class="dropdown-content">
+                @can('create buildings')
                 <a href="{{route('building.create')}}">Create New</a>
+                @endcan
                 <a href="{{route('building.lists')}}">Building Lists</a>
             </div>
         </li>
@@ -72,21 +74,23 @@
                 <a href="#">Water Billing</a>
             </div>
         </li>
-
+        @can('manage users'))
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">User Management</a>
             <div class="dropdown-content">
                 <a href="{{route('user.create')}}">Create New</a>
                 <a href="{{route('user.lists')}}">User List</a>
                 <a href="{{route('user.roles')}}">Roles</a>
+                <a href="{{route('user.permissions')}}">Permissions</a>
             </div>
         </li>
+        @endcan
 
-        <li>
 
-
-        <li><a href="{{route('admin.index')}}">Reports</a></li>
-        <li><a href="{{route('admin.index')}}">System</a></li>
+        <li><a href="{{route('report.index')}}">Reports</a></li>
+        @can('manage system settings')
+        <li><a href="{{route('admin.index')}}">System Settings</a></li>
+        @endcan
         <li>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

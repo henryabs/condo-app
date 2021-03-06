@@ -1,22 +1,45 @@
 <?php
 
 namespace App\Http\Controllers;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function create(){
-        return view('admin.user.create');
+        if(auth()->user()->can('manage users')){
+            return view('admin.user.create');
+        }else{
+            abort(403);
+        }
     }
 
     public function userLists(){
-        return view('admin.user.lists');
+        if(auth()->user()->can('manage users')){
+            return view('admin.user.lists');
+        }else{
+            abort(403);
+        }
     }
 
     public function roles(){
-        $roles = Role::all()->pluck('name');
-        return view('admin.user.roles', ['roles' => $roles]);
+        if(auth()->user()->can('manage users')){
+            $roles = Role::all();
+            $permissions = Permission::all();
+            return view('admin.user.roles', ['roles' => $roles, 'permissions' => $permissions]);
+        }else{
+            abort(403);
+        }
+    }
+
+    public function permissions(){
+        if(auth()->user()->can('manage users')){
+            $permissions = Permission::all();
+            return view('admin.user.permissions', ['permissions' => $permissions]);
+        }else{
+            abort(403);
+        }
     }
 
     public function createRole(){
