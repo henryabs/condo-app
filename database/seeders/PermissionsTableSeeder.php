@@ -18,10 +18,10 @@ class PermissionsTableSeeder extends Seeder
     {
         //CREATE DEFAULT PERMISSION
         $permissions = [
-            'manage users',
-            'create buildings',
             'view buildings',
+            'create buildings',
             'manage billings',
+            'manage users',
             'generate reports',
             'manage system settings',
         ];
@@ -43,9 +43,10 @@ class PermissionsTableSeeder extends Seeder
         //ASSIGN PERMISSION TO ADMIN ROLE
         $role = Role::find(2);
         $permissions = [
-            'manage users',
+            'view buildings',
             'create buildings',
             'manage billings',
+            'manage users',
             'generate reports',
             'manage system settings',
         ];

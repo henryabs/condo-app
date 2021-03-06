@@ -62,10 +62,12 @@
                 @can('create buildings')
                 <a href="{{route('building.create')}}">Create New</a>
                 @endcan
+                @can('view buildings')
                 <a href="{{route('building.lists')}}">Building Lists</a>
+                @endcan
             </div>
         </li>
-
+        @can('manage billings')
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Billings</a>
             <div class="dropdown-content">
@@ -74,6 +76,8 @@
                 <a href="#">Water Billing</a>
             </div>
         </li>
+        @endcan
+
         @can('manage users'))
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">User Management</a>
@@ -86,8 +90,10 @@
         </li>
         @endcan
 
-
+        @can('generate reports')
         <li><a href="{{route('report.index')}}">Reports</a></li>
+        @endcan
+
         @can('manage system settings')
         <li><a href="{{route('admin.index')}}">System Settings</a></li>
         @endcan

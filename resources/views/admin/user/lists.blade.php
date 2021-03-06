@@ -26,6 +26,7 @@
                         @foreach($permissions as $permission)
                             @if($user->hasDirectPermission($permission))
                                 <span style="background: green;color: white;padding: 2px;border-radius: 5px">{{$permission->name}}</span>
+                            
                             @endif
                         @endforeach
                     </td>
