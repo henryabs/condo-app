@@ -26,12 +26,12 @@
                         @foreach($permissions as $permission)
                             @if($user->hasDirectPermission($permission))
                                 <span style="background: green;color: white;padding: 2px;border-radius: 5px">{{$permission->name}}</span>
-                            
+
                             @endif
                         @endforeach
                     </td>
                     <td>
-                        <a href="#">Edit</a>
+                        <a href="{{route('user.edit', ['id' => $user->id])}}">Edit</a>
                         <a href="#">Delete</a>
                     </td>
                 </tr>
