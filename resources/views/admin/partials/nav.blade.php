@@ -87,7 +87,7 @@
                 <a href="{{route('user.create')}}">Create New</a>
                 <a href="{{route('user.lists')}}">User List</a>
                 <a href="{{route('user.roles')}}">Roles</a>
-                <a href="{{route('user.permissions')}}">Permissions</a>
+{{--                <a href="{{route('user.permissions')}}">Permissions</a>--}}
             </div>
         </li>
         @endcan
@@ -99,6 +99,9 @@
         @can('manage system settings')
         <li><a href="{{route('admin.index')}}">System Settings</a></li>
         @endcan
+
+        <li style="background: teal;"><a href="#" >{{auth()->user()->name}} | {{auth()->user()->getRoleNames()[0]}}</a></li>
+
         <li>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
