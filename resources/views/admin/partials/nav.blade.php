@@ -55,7 +55,7 @@
 
     <ul>
         <li><a href="{{route('admin.index')}}">Dashboard</a></li>
-
+        @can('view buildings')
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Buildings</a>
             <div class="dropdown-content">
@@ -67,6 +67,8 @@
                 @endcan
             </div>
         </li>
+        @endcan
+
         @can('manage billings')
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Billings</a>

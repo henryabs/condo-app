@@ -46,8 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function (){
 
 
 Route::get('/test', function (){
-    $user = \App\Models\User::find(2);
-    $user->givePermissionTo('manage users');// ALLOWED GET VIA PERMISSION NAME
+//    $user = \App\Models\User::find(2);
+//    $user->givePermissionTo('manage users');// ALLOWED GET VIA PERMISSION NAME
 
 });
 

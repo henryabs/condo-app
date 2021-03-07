@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -9,90 +11,105 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
     public function create(){
-        if(auth()->user()->can('manage users')){
-            return view('admin.user.create');
-        }else{
+        if(!auth()->user()->hasPermissionTo('manage users')){
             abort(403);
         }
+        return view('admin.user.create');
     }
 
     public function userLists(){
-        if(auth()->user()->can('manage users')){
-            $users = User::all();
-            $roles = Role::all();
-            $permissions = Permission::all();
-            return view('admin.user.lists', ['users' => $users, 'permissions' => $permissions, 'roles' => $roles]);
-        }else{
+        if(!auth()->user()->hasPermissionTo('manage users')){
             abort(403);
         }
+        $users = User::all();
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('admin.user.lists', ['users' => $users, 'permissions' => $permissions, 'roles' => $roles]);
     }
 
     public function roles(){
-        if(auth()->user()->can('manage users')){
-            $roles = Role::all();
-            $permissions = Permission::all();
-            return view('admin.user.roles', ['roles' => $roles, 'permissions' => $permissions]);
-        }else{
+        if(!auth()->user()->hasPermissionTo('manage users')){
             abort(403);
         }
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('admin.user.roles', ['roles' => $roles, 'permissions' => $permissions]);
     }
 
     public function permissions(){
-        if(auth()->user()->can('manage users')){
-            $permissions = Permission::all();
-            return view('admin.user.permissions', ['permissions' => $permissions]);
-        }else{
+        if(!auth()->user()->hasPermissionTo('manage users')){
             abort(403);
         }
+        $permissions = Permission::all();
+        return view('admin.user.permissions', ['permissions' => $permissions]);
     }
 
     public function createRole(){
-        return view('admin.user.roles.create');
+        if(!auth()->user()->hasPermissionTo('manage users')){
+            abort(403);
+        }
+        $permissions = Permission::all();
+        return view('admin.user.roles.create', ['permissions' => $permissions]);
     }
 
     public function storeRole(Request $request){
+        if(!auth()->user()->hasPermissionTo('manage users')){
+            abort(403);
+        }
         $validated = $request->validate([
            'name' => 'required|unique:roles|min:3|max:15'
         ]);
         $create_role = Role::create(['name' => $request->name]);
         if($create_role){
+            //SET PERMISSION DIRECTLY TO ROLE
+            $create_role->syncPermissions($request->permission);
             $notification = ['message' => 'Role added successfully', 'alert-type' => 'success'];
             return redirect()->route('user.roles')->with($notification);
         }
     }
 
     public function storeUser(Request $request){
-        if(auth()->user()->can('manage users')){
-            $validated = $request->validate([
-                'name' => 'required|max:30',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|min:8'
-            ]);
-            $user_created = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-            if($user_created){
-                $user_created->assignRole('standard');
-                $notification = ['message' => 'User added successfully', 'alert-type' => 'success'];
-                return redirect()->route('user.lists')->with($notification);
-            }
-        }else{
+        if(!auth()->user()->hasPermissionTo('manage users')){
             abort(403);
+        }
+        $validated = $request->validate([
+            'name' => 'required|max:30',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8'
+        ]);
+        $user_created = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        if($user_created){
+            $user_created->assignRole('standard');
+            $notification = ['message' => 'User added successfully', 'alert-type' => 'success'];
+            return redirect()->route('user.lists')->with($notification);
         }
 
     }
 
     public function editUser($id){
+        if(!auth()->user()->hasPermissionTo('manage users')){
+            abort(403);
+        }
+
         $user = User::find($id);
+
+        $current_role = Role::findByName($user->getRoleNames()[0]);
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('admin.user.edit', ['roles' => $roles, 'user' => $user, 'permissions' => $permissions]);
+        return view('admin.user.edit', ['roles' => $roles, 'user' => $user, 'permissions' => $permissions, 'current_role' => $current_role]);
     }
 
     public function updateUser(Request $request){
+        if(!auth()->user()->hasPermissionTo('manage users')){
+            abort(403);
+        }
+
         $validated = $request->validate([
             'name' => 'required|max:30',
             'email' => 'required|email',
@@ -109,10 +126,6 @@ class UserController extends Controller
             $notification = ['message' => 'User updated successfully', 'alert-type' => 'success'];
             return redirect()->route('user.lists')->with($notification);
         }
-
-
-
-
 
     }
 }
